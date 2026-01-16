@@ -13,7 +13,7 @@ body {
   overflow: hidden;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  background-image: url("background.jpg");
+  background-image: url("photo_5427354974741533034_y.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -98,3 +98,4 @@ body {
     max-width: 90%;
   }
 }
+
