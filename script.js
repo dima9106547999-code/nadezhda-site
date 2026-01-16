@@ -1,11 +1,13 @@
 const bonus = document.getElementById("bonus");
 const salary = document.getElementById("salary");
-const tanya = document.getElementById("tanya");
+const plant = document.getElementById("plant");
+const ufa = document.getElementById("ufa");
+const ivanovo = document.getElementById("ivanovo");
+const home = document.getElementById("home");
 const resultImage = document.getElementById("result-image");
 
 let bonusClickAttempts = 0;
 let salaryClickAttempts = 0;
-let tanyaClickAttempts = 0;
 
 function setRandomPosition(el) {
   const padding = 20;
@@ -43,16 +45,12 @@ function handleSalaryAttempt() {
 
   if (salaryClickAttempts >= 4) {
     salary.classList.add("salary-hidden");
-
-    // Показать картинку на время "растворения"
     resultImage.hidden = false;
 
     setTimeout(() => {
       salary.classList.remove("salary-hidden");
       salaryClickAttempts = 0;
       setRandomPosition(salary);
-
-      // Спрятать картинку обратно
       resultImage.hidden = true;
     }, 3000);
   } else {
@@ -60,15 +58,8 @@ function handleSalaryAttempt() {
   }
 }
 
-function handleTanyaAttempt() {
-  tanyaClickAttempts++;
-
-  if (tanyaClickAttempts >= 3) {
-    tanya.textContent = "Таня тут :)";
-    tanyaClickAttempts = 0;
-  }
-
-  escapeToRandomSide(tanya);
+function handleSimpleBadge(el) {
+  escapeToRandomSide(el);
 }
 
 // События для мыши и тача
@@ -76,19 +67,18 @@ function handleTanyaAttempt() {
   bonus.addEventListener(evt, e => {
     e.preventDefault();
     handleBonusAttempt();
-    // Таня тоже мелькает
-    escapeToRandomSide(tanya);
   });
 
   salary.addEventListener(evt, e => {
     e.preventDefault();
     handleSalaryAttempt();
-    escapeToRandomSide(tanya);
   });
 
-  tanya.addEventListener(evt, e => {
-    e.preventDefault();
-    handleTanyaAttempt();
+  [plant, ufa, ivanovo, home].forEach(el => {
+    el.addEventListener(evt, e => {
+      e.preventDefault();
+      handleSimpleBadge(el);
+    });
   });
 });
 
@@ -124,22 +114,15 @@ function gentleDrift(el) {
 }
 
 setInterval(() => {
-  gentleDrift(bonus);
-  gentleDrift(salary);
-  gentleDrift(tanya);
+  [bonus, salary, plant, ufa, ivanovo, home].forEach(gentleDrift);
 }, 1500);
 
 // Стартовые позиции
 window.addEventListener("load", () => {
-  setRandomPosition(bonus);
-  setRandomPosition(salary);
-  setRandomPosition(tanya);
+  [bonus, salary, plant, ufa, ivanovo, home].forEach(setRandomPosition);
 });
 
 // При изменении размера окна — пересчитать
 window.addEventListener("resize", () => {
-  setRandomPosition(bonus);
-  setRandomPosition(salary);
-  setRandomPosition(tanya);
+  [bonus, salary, plant, ufa, ivanovo, home].forEach(setRandomPosition);
 });
-
